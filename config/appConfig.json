@@ -1,0 +1,36 @@
+{
+  "sheetParser": {
+    "googleSheetId": "1uBVTVeIc1FW_yvYYTw2hUA2gnyPBylP7g_sIqWUKLt8",
+    "playerListType": "coc",
+    "sheetName": "Teams",
+    "broadcastNameColumn": "Broadcast Name"
+  },
+  "google": {
+    "apiKey": "AIzaSyBn8Atv2Kw94CaRA21P2an3fNItrcq-8jY"
+  },
+  "companion": {
+    "host": "127.0.0.1",
+    "port": 8000
+  },
+  "frame": {
+    "width": 1920,
+    "height": 1080
+  },
+  "trigger": {
+    "cam1": "page/1/row/1",
+    "cam2": "page/1/row/2",
+    "cam3": "page/1/row/3",
+    "cam4": "page/1/row/4",
+    "cam5": "page/1/row/5",
+    "cam6": "page/1/row/6",
+    "cam7": "page/1/row/7",
+    "cam8": "page/1/row/8",
+    "cam9": "page/1/row/9",
+    "cam10": "page/1/row/10",
+    "cam11": "page/1/row/11",
+    "cam12": "page/1/row/12",
+    "cam13": "page/1/row/13",
+    "cam14": "page/1/row/14",
+    "cam15": "page/1/row/15"
+  }
+}

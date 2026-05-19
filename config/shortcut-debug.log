@@ -1,0 +1,18 @@
+[2026-04-23T05:24:51.166Z] shortcut fired (before trigger) {"shortcut":"F1","playerName":"","teamName":"Team 1","camera":"cam1"}
+[2026-04-23T05:24:51.173Z] shortcut result {"shortcut":"F1","endpoint":"/api/press/page/1/row/1","success":false}
+[2026-04-23T05:24:51.569Z] shortcut fired (before trigger) {"shortcut":"F2","playerName":"General X","teamName":"Team 1","camera":"cam2"}
+[2026-04-23T05:24:51.570Z] shortcut result {"shortcut":"F2","endpoint":"/api/press/page/1/row/2","success":false}
+[2026-04-23T05:24:51.933Z] shortcut fired (before trigger) {"shortcut":"F3","playerName":"Elchanchito","teamName":"Team 1","camera":"cam3"}
+[2026-04-23T05:24:51.934Z] shortcut result {"shortcut":"F3","endpoint":"/api/press/page/1/row/3","success":false}
+[2026-04-23T05:25:42.506Z] shortcut fired (before trigger) {"shortcut":"F2","playerName":"General X","teamName":"Team 1","camera":"cam2"}
+[2026-04-23T05:25:42.507Z] shortcut result {"shortcut":"F2","endpoint":"/api/press/page/1/row/2","success":false}
+[2026-04-23T05:25:42.989Z] shortcut fired (before trigger) {"shortcut":"F1","playerName":"","teamName":"Team 1","camera":"cam1"}
+[2026-04-23T05:25:42.990Z] shortcut result {"shortcut":"F1","endpoint":"/api/press/page/1/row/1","success":false}
+[2026-04-23T05:25:43.644Z] shortcut fired (before trigger) {"shortcut":"F3","playerName":"Elchanchito","teamName":"Team 1","camera":"cam3"}
+[2026-04-23T05:25:43.647Z] shortcut result {"shortcut":"F3","endpoint":"/api/press/page/1/row/3","success":false}
+[2026-04-23T05:49:07.456Z] shortcut fired (before trigger) {"shortcut":"F1","playerName":"","teamName":"Team 1","camera":"cam1"}
+[2026-04-23T05:49:07.458Z] shortcut result {"shortcut":"F1","endpoint":"/api/press/page/1/row/1","success":false}
+[2026-04-23T05:49:07.741Z] shortcut fired (before trigger) {"shortcut":"F2","playerName":"General X","teamName":"Team 1","camera":"cam2"}
+[2026-04-23T05:49:07.742Z] shortcut result {"shortcut":"F2","endpoint":"/api/press/page/1/row/2","success":false}
+[2026-04-23T05:49:12.257Z] shortcut fired (before trigger) {"shortcut":"F3","playerName":"Elchanchito","teamName":"Team 1","camera":"cam3"}
+[2026-04-23T05:49:12.258Z] shortcut result {"shortcut":"F3","endpoint":"/api/press/page/1/row/3","success":false}

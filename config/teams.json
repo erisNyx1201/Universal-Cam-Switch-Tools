@@ -1,0 +1,28 @@
+{
+  "coc": [
+    {
+      "id": "ff2cc2c5-1dbd-44b3-9aac-249a9a55e98c",
+      "name": "Team 1",
+      "players": [
+        {
+          "id": "3f6a0146-cd0a-46f2-b2da-ccfd618adde5",
+          "name": "",
+          "camera": "cam1",
+          "keybind": "F1"
+        },
+        {
+          "id": "da20259b-8322-4f27-9b89-2e9ab6706ad7",
+          "name": "General X",
+          "camera": "cam2",
+          "keybind": "F2"
+        },
+        {
+          "id": "9e2bac11-3d06-4106-a9bf-5059d06237ec",
+          "name": "Elchanchito",
+          "camera": "cam3",
+          "keybind": "F3"
+        }
+      ]
+    }
+  ]
+}

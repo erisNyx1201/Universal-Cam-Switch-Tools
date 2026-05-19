@@ -1,0 +1,16 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.camtest.app
+productName: Universal Cam Switch
+files:
+  - filter:
+      - dist/**/*
+      - electron/**/*
+      - core/**/*
+      - config/**/*
+      - package.json
+win:
+  target: nsis
+  requestedExecutionLevel: requireAdministrator
+electronVersion: 41.1.0
