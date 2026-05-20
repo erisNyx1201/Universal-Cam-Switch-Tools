@@ -61,6 +61,14 @@ export default function useTeams(playerListType) {
   }, [playerListType]);
 
   useEffect(() => {
+
+    console.log("AUTO SAVE EFFECT", {
+      isSwitching: isSwitchingTypeRef.current,
+      isLoadingTeams,
+      playerListType,
+      teamsLength: teams.length,
+    });
+    
     if (!playerListType) return;
     if (!hasHydratedRef.current) return;
     if (isLoadingTeams) return;
