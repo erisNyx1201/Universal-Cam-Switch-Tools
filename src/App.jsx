@@ -11,6 +11,7 @@ import useBroadcastNames from "./hooks/useBroadcastNames";
 import useTeams from "./hooks/useTeams";
 import useKeybindModal from "./hooks/useKeybindModal";
 import { electronAPI } from "./lib/electron";
+import { connectSocket } from "./lib/socket";
 
 export default function App() {
   const [lastShortcutEvent, setLastShortcutEvent] = useState(null);
@@ -61,6 +62,21 @@ export default function App() {
     electronAPI.onShortcutFired((payload) => {
       setLastShortcutEvent(payload);
     });
+  }, []);
+
+  useEffect(() => {
+    async function initSocket() {
+      const config = await electronAPI.getConfig();
+
+      const socket = connectSocket(config.server.host, config.server.port);
+
+      socket.emit("cam:observer:join", {
+        observerId: config.server.observerId,
+        label: config.server.observerId,
+      });
+    }
+
+    initSocket();
   }, []);
 
   useEffect(() => {
@@ -126,7 +142,7 @@ export default function App() {
           <h1 className="text-2xl font-semibold">
             Universal Cam Switching Tool
           </h1>
-          
+
           {lastShortcutEvent && (
             <div className="mb-4 rounded-xl border border-pink-400 px-4 py-2 text-sm text-pink-300">
               Last shortcut: {lastShortcutEvent.shortcut} |{" "}
@@ -162,6 +178,7 @@ export default function App() {
             <TeamCard
               key={team.id}
               team={team}
+              observerId={config?.server?.observerId}
               onAddPlayer={addPlayerToTeam}
               onUpdatePlayer={updatePlayer}
               onOpenKeybindModal={openKeybindModal}
@@ -173,22 +190,6 @@ export default function App() {
             />
           ))}
         </div>
-        {/* <div key={`${playerListType}-${teams.length}`} className="space-y-6">
-          {teams.map((team) => (
-            <TeamCard
-              key={team.id}
-              team={team}
-              onAddPlayer={addPlayerToTeam}
-              onUpdatePlayer={updatePlayer}
-              onOpenKeybindModal={openKeybindModal}
-              onDeleteTeam={handleDeleteTeam}
-              onDeletePlayer={handleDeletePlayer}
-              playerOptions={broadcastNames}
-              triggerOptions={triggers}
-              onUpdateTeamName={updateTeamName}
-            />
-          ))}
-        </div> */}
       </div>
 
       <SettingsModal

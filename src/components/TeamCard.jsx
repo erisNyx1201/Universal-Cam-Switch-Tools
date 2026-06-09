@@ -3,6 +3,7 @@ import PlayerCard from "./PlayerCard";
 
 export default function TeamCard({
   team,
+  observerId,
   onAddPlayer,
   onUpdatePlayer,
   onUpdateTeamName,
@@ -49,6 +50,8 @@ export default function TeamCard({
           <PlayerCard
             key={player.id}
             teamId={team.id}
+            teamName={team.name}
+            observerId={observerId}
             player={player}
             onUpdatePlayer={onUpdatePlayer}
             onOpenKeybindModal={onOpenKeybindModal}

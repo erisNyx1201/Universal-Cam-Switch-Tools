@@ -2,6 +2,10 @@ console.log("✅ preload loaded");
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
+
+  notifyTrigger: (payload) =>
+  ipcRenderer.invoke("socket:trigger", payload),
+  
   getTriggers: () => ipcRenderer.invoke("config:get-triggers"),
 
   getConfig: () => ipcRenderer.invoke("config:get"),

@@ -1,7 +1,10 @@
 import { Trash2 } from "lucide-react";
+import { getSocket } from "../lib/socket";
 
 export default function PlayerCard({
   teamId,
+  teamName,
+  observerId,
   player,
   onUpdatePlayer,
   onOpenKeybindModal,
@@ -9,14 +12,34 @@ export default function PlayerCard({
   playerOptions = [],
   triggerOptions = {},
 }) {
+  const emitFocus = ({ nextPlayerName = player.name, nextCamera = player.camera }) => {
+    const socket = getSocket();
+
+    socket?.emit("cam:observer:focus", {
+      observerId,
+      teamId,
+      teamName,
+      playerId: player.id,
+      playerName: nextPlayerName,
+      camera: nextCamera,
+    });
+  };
+
   return (
     <div className="w-fit rounded-xl border border-sky-400 p-3">
       <div className="flex items-center gap-2">
         <select
           value={player.name}
-          onChange={(e) =>
-            onUpdatePlayer(teamId, player.id, "name", e.target.value)
-          }
+          onChange={(e) => {
+            const nextName = e.target.value;
+
+            onUpdatePlayer(teamId, player.id, "name", nextName);
+
+            emitFocus({
+              nextPlayerName: nextName,
+              nextCamera: player.camera,
+            });
+          }}
           className="h-10 appearance-none rounded-lg border border-sky-400 bg-black px-4 pr-10 text-sm outline-none"
         >
           {playerOptions.length === 0 ? (
@@ -29,25 +52,19 @@ export default function PlayerCard({
             ))
           )}
         </select>
-        {/* <select
-          value={player.name}
-          onChange={(e) =>
-            onUpdatePlayer(teamId, player.id, "name", e.target.value)
-          }
-          className="h-10 rounded-lg bg-black px-3 outline-none"
-        >
-          <option value="p1">Player 1</option>
-          <option value="p2">Player 2</option>
-          <option value="p3">Player 3</option>
-          <option value="p4">Player 4</option>
-          <option value="p5">Player 5</option>
-        </select> */}
 
         <select
           value={player.camera}
-          onChange={(e) =>
-            onUpdatePlayer(teamId, player.id, "camera", e.target.value)
-          }
+          onChange={(e) => {
+            const nextCamera = e.target.value;
+
+            onUpdatePlayer(teamId, player.id, "camera", nextCamera);
+
+            emitFocus({
+              nextPlayerName: player.name,
+              nextCamera,
+            });
+          }}
           className="h-10 rounded-lg bg-black px-3 text-sm outline-none"
         >
           {Object.keys(triggerOptions).length === 0 ? (
@@ -63,7 +80,14 @@ export default function PlayerCard({
 
         <button
           type="button"
-          onClick={() => onOpenKeybindModal(teamId, player.id)}
+          onClick={() => {
+            onOpenKeybindModal(teamId, player.id);
+
+            emitFocus({
+              nextPlayerName: player.name,
+              nextCamera: player.camera,
+            });
+          }}
           className="h-10 min-w-[40px] rounded-lg border border-sky-400 px-3 text-sm hover:bg-sky-400/10"
         >
           {player.keybind || "Set Key"}

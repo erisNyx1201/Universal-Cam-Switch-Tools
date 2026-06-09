@@ -127,7 +127,7 @@
 //     app.quit();
 //   }
 // });
-
+const { io } = require("socket.io-client");
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
@@ -147,6 +147,8 @@ const {
   registerUiohookBindings,
   stopUiohook,
 } = require("../core/uiohookManager");
+
+let observerSocket = null;
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -168,8 +170,49 @@ function createWindow() {
   }
 }
 
+function connectObserverSocket() {
+  const config = loadConfig();
+
+  const host = config.server?.host || "127.0.0.1";
+  const port = config.server?.port || 9005;
+  const observerId = config.server?.observerId || "observer-a";
+
+  if (observerSocket?.connected) return observerSocket;
+
+  observerSocket = io(`http://${host}:${port}`, {
+    transports: ["websocket"],
+    reconnection: true,
+  });
+
+  observerSocket.on("connect", () => {
+    console.log("[CamSwitch Main] Socket connected:", observerSocket.id);
+
+    observerSocket.emit("cam:observer:join", {
+      observerId,
+      label: observerId,
+    });
+  });
+
+  observerSocket.on("disconnect", () => {
+    console.log("[CamSwitch Main] Socket disconnected");
+  });
+
+  observerSocket.on("connect_error", (error) => {
+    console.error("[CamSwitch Main] Socket error:", error.message);
+  });
+
+  return observerSocket;
+}
+
 app.whenReady().then(() => {
   createWindow();
+  connectObserverSocket();
+
+  ipcMain.handle("socket:trigger", async (_, payload) => {
+    observerSocket?.emit("cam:observer:trigger", payload);
+
+    return true;
+  });
 
   ipcMain.handle("config:get", async () => {
     return loadConfig();
@@ -245,6 +288,16 @@ app.whenReady().then(() => {
         });
 
         const config = loadConfig();
+
+        observerSocket?.emit("cam:observer:trigger", {
+          observerId: config.server?.observerId,
+          teamId: binding.teamId,
+          teamName: binding.teamName,
+          playerId: binding.playerId,
+          playerName: binding.playerName,
+          camera: binding.camera,
+          shortcut: binding.shortcut,
+        });
 
         const triggerPath = config.trigger?.[binding.camera];
 
@@ -325,7 +378,19 @@ app.whenReady().then(() => {
       const results = registerUiohookBindings(bindings, async (binding) => {
         console.log("uiohook fired:", binding);
 
-        // For first test, only notify UI.
+        const config = loadConfig();
+        const socket = connectObserverSocket();
+
+        socket?.emit("cam:observer:trigger", {
+          observerId: config.server?.observerId || "observer-a",
+          teamId: binding.teamId,
+          teamName: binding.teamName,
+          playerId: binding.playerId,
+          playerName: binding.playerName,
+          camera: binding.camera,
+          shortcut: binding.shortcut,
+        });
+
         BrowserWindow.getAllWindows().forEach((win) => {
           win.webContents.send("shortcut:fired", {
             shortcut: binding.shortcut,
@@ -344,6 +409,30 @@ app.whenReady().then(() => {
       return { success: false, error: error.message };
     }
   });
+  // ipcMain.handle("uiohook:register-all", async (_, bindings) => {
+  //   try {
+  //     const results = registerUiohookBindings(bindings, async (binding) => {
+  //       console.log("uiohook fired:", binding);
+
+  //       // For first test, only notify UI.
+  //       BrowserWindow.getAllWindows().forEach((win) => {
+  //         win.webContents.send("shortcut:fired", {
+  //           shortcut: binding.shortcut,
+  //           playerName: binding.playerName,
+  //           teamName: binding.teamName,
+  //           camera: binding.camera,
+  //           timestamp: Date.now(),
+  //           status: "uiohook-fired",
+  //         });
+  //       });
+  //     });
+
+  //     return { success: true, results };
+  //   } catch (error) {
+  //     console.error("Failed to register uiohook:", error);
+  //     return { success: false, error: error.message };
+  //   }
+  // });
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
