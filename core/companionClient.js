@@ -16,7 +16,7 @@ function httpGet(url) {
 
       res.on("end", () => {
         resolve({
-          success: true,
+          success: res.statusCode >= 200 && res.statusCode < 300,
           statusCode: res.statusCode,
           body: data,
         });
@@ -40,6 +40,49 @@ function httpGet(url) {
   });
 }
 
+function httpPost(url) {
+  return new Promise((resolve) => {
+    const req = http.request(
+      url,
+      {
+        method: "POST",
+      },
+      (res) => {
+        let data = "";
+
+        res.on("data", (chunk) => {
+          data += chunk;
+        });
+
+        res.on("end", () => {
+          resolve({
+            success: res.statusCode >= 200 && res.statusCode < 300,
+            statusCode: res.statusCode,
+            body: data,
+          });
+        });
+      }
+    );
+
+    req.on("error", (error) => {
+      resolve({
+        success: false,
+        error: error.message,
+      });
+    });
+
+    req.setTimeout(3000, () => {
+      req.destroy();
+      resolve({
+        success: false,
+        error: "Connection timeout",
+      });
+    });
+
+    req.end();
+  });
+}
+
 async function testCompanionConnection(host, port) {
   const url = buildUrl(host, port, "/");
   return await httpGet(url);
@@ -47,7 +90,7 @@ async function testCompanionConnection(host, port) {
 
 async function triggerCompanionAction({ host, port, endpoint = "/" }) {
   const url = buildUrl(host, port, endpoint);
-  return await httpGet(url);
+  return await httpPost(url);
 }
 
 module.exports = {

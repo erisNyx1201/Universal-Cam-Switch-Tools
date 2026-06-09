@@ -12,7 +12,10 @@ export default function PlayerCard({
   playerOptions = [],
   triggerOptions = {},
 }) {
-  const emitFocus = ({ nextPlayerName = player.name, nextCamera = player.camera }) => {
+  const emitFocus = ({
+    nextPlayerName = player.name,
+    nextCamera = player.camera,
+  }) => {
     const socket = getSocket();
 
     socket?.emit("cam:observer:focus", {
@@ -67,7 +70,14 @@ export default function PlayerCard({
           }}
           className="h-10 rounded-lg bg-black px-3 text-sm outline-none"
         >
-          {Object.keys(triggerOptions).length === 0 ? (
+          {Object.keys(triggerOptions)
+            .filter((key) => key.startsWith("cam"))
+            .map((camKey) => (
+              <option key={camKey} value={camKey}>
+                {camKey.replace("cam", "Cam ")}
+              </option>
+            ))}
+          {/* {Object.keys(triggerOptions).length === 0 ? (
             <option value="">No cams</option>
           ) : (
             Object.keys(triggerOptions).map((camKey) => (
@@ -75,7 +85,7 @@ export default function PlayerCard({
                 {camKey.replace("cam", "Cam ")}
               </option>
             ))
-          )}
+          )} */}
         </select>
 
         <button
