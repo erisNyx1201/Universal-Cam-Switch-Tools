@@ -1,26 +1,86 @@
 {
-  "coc": [
+  "marvel-rivals": [
     {
       "id": "ff2cc2c5-1dbd-44b3-9aac-249a9a55e98c",
-      "name": "Team 1",
+      "name": "Natus Vincere",
       "players": [
         {
           "id": "3f6a0146-cd0a-46f2-b2da-ccfd618adde5",
-          "name": "",
+          "name": "TrqstMe",
           "camera": "cam1",
           "keybind": "F1"
         },
         {
           "id": "da20259b-8322-4f27-9b89-2e9ab6706ad7",
-          "name": "General X",
+          "name": "Raajaro",
           "camera": "cam2",
           "keybind": "F2"
         },
         {
           "id": "9e2bac11-3d06-4106-a9bf-5059d06237ec",
-          "name": "Elchanchito",
+          "name": "Jur3ky",
           "camera": "cam3",
           "keybind": "F3"
+        },
+        {
+          "id": "8116d0aa-bd4d-42b0-957d-c4e0082f9f98",
+          "name": "Terra",
+          "camera": "cam4",
+          "keybind": "F4"
+        },
+        {
+          "id": "65d6ee1a-b699-4631-b52c-8e7ff3c69ab6",
+          "name": "fate",
+          "camera": "cam5",
+          "keybind": "F5"
+        },
+        {
+          "id": "6f83cee4-bf62-4805-9f81-b2ab24e4cb92",
+          "name": "Lv1Crook",
+          "camera": "cam6",
+          "keybind": "F6"
+        }
+      ]
+    },
+    {
+      "id": "d686f287-68d7-471b-8bca-0c464e0ea267",
+      "name": "Team Heretics",
+      "players": [
+        {
+          "id": "0963df7c-9d26-45f7-8b1b-ebf7aef0b37a",
+          "name": "Beetle",
+          "camera": "cam7",
+          "keybind": "F7"
+        },
+        {
+          "id": "033a66cf-ee94-487e-82c9-9d6eb51f632b",
+          "name": "Nzo",
+          "camera": "cam8",
+          "keybind": "F8"
+        },
+        {
+          "id": "56dac310-14cf-4a52-ae0a-add8b528e053",
+          "name": "Naga",
+          "camera": "cam9",
+          "keybind": "F9"
+        },
+        {
+          "id": "1b4956ba-9d4a-4731-bf29-4b8d3df4aa6e",
+          "name": "Tanuki",
+          "camera": "cam10",
+          "keybind": "F10"
+        },
+        {
+          "id": "c471395c-b699-4631-bf29-8e7ff3c69ab6",
+          "name": "Alx",
+          "camera": "cam11",
+          "keybind": "F11"
+        },
+        {
+          "id": "c471395c-3893-4288-807b-aaf1fce4ac26",
+          "name": "Ken",
+          "camera": "cam12",
+          "keybind": "F12"
         }
       ]
     }
